@@ -13,12 +13,14 @@ func _ready():
 # - Colors
 # -- Set editor colors
 func set_editor_colors():
-	var bg_color: Color = get_stylebox("normal", theme_type_variation).bg_color
+	var style_box: StyleBox = get_stylebox("normal", theme_type_variation)
+	var bg_color: Color = style_box.bg_color
 
-	VisualServer.set_default_clear_color(bg_color)
+	VisualServer.set_default_clear_color(Color(bg_color.r, bg_color.g, bg_color.b))
 
-	# Set some colors to the same
+	# Set editor colors
 	theme.set_color("caret_background_color", theme_type_variation, bg_color)
+	theme.set_color("font_color_selected", theme_type_variation, bg_color)
 
 
 # -- Add prefix colors

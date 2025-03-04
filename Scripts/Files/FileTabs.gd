@@ -2,7 +2,7 @@ extends Control
 
 
 # Objects
-onready var tabs: Tabs = $Tabs
+onready var tabs: Tabs = $HBoxContainer/Tabs
 
 
 
