@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Main/TextEditor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Files/FileTabs.gd" type="Script" id=2]
+
+[node name="Main" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="FileTabs" type="Control" parent="Control/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+script = ExtResource( 2 )
+
+[node name="Tabs" type="Tabs" parent="Control/VBoxContainer/FileTabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+tab_align = 0
+drag_to_rearrange_enabled = true
+
+[node name="Editor" type="Control" parent="Control/VBoxContainer"]
+margin_top = 21.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEditor" parent="Control/VBoxContainer/Editor" instance=ExtResource( 1 )]

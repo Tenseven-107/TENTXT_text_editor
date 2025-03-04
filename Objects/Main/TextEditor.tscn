@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/Editing/TextEditor.gd" type="Script" id=2]
+
+[node name="TextEditor" type="TextEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+highlight_current_line = true
+syntax_highlighting = true
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+bookmark_gutter = true
+breakpoint_gutter = true
+fold_gutter = true
+highlight_all_occurrences = true
+override_selected_font_color = true
+hiding_enabled = true
+minimap_draw = true
+minimap_width = 50
+caret_blink = true
+script = ExtResource( 2 )
