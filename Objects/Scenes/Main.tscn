@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Scripts/Files/FileTabs.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Files/EditorBar.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Main/TextEditor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/Icons/Options_simple.png" type="Texture" id=4]
+[ext_resource path="res://Resources/Icons/File_open_simple.png" type="Texture" id=5]
+[ext_resource path="res://Resources/Icons/File_open_Hover.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Icons/Options_Hover.png" type="Texture" id=7]
+[ext_resource path="res://Resources/Icons/File_open_Press.png" type="Texture" id=8]
+[ext_resource path="res://Resources/Icons/Options_Press.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Files/ProjectFileDialog.gd" type="Script" id=10]
 
 [node name="Main" type="Node"]
 
@@ -44,9 +51,13 @@ margin_top = 9.0
 margin_right = 1024.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.03
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
+file_dialog_path = NodePath("../../FileDialog")
+text_editor_path = NodePath("../Editor/TextEditor")
 
 [node name="BackPanel" type="Panel" parent="Control/EditorFront/FileTabs"]
 anchor_right = 1.0
@@ -60,11 +71,50 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Control" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer"]
+[node name="Options" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer"]
 margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/FileTabs/HBoxContainer/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Margin" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OpenFile" type="TextureButton" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Options" type="TextureButton" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+margin_left = 48.0
+margin_right = 68.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+
+[node name="Margin2" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+margin_left = 72.0
+margin_right = 92.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Tabs" type="Tabs" parent="Control/EditorFront/FileTabs/HBoxContainer"]
 margin_left = 96.0
@@ -83,3 +133,18 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="TextEditor" parent="Control/EditorFront/Editor" instance=ExtResource( 3 )]
+
+[node name="FileDialog" type="FileDialog" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -65.0
+margin_right = 157.5
+margin_bottom = 65.0
+popup_exclusive = true
+window_title = "Open a file"
+resizable = true
+mode = 0
+script = ExtResource( 10 )

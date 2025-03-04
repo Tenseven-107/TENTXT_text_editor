@@ -32,3 +32,32 @@ func add_prefix_colors():
 	# NOTE: Update these depending on filetype later to avoid prefixes having the wrong color in other languages
 	add_color_region("//", "", get_color("comment_color", theme_type_variation),true)
 	add_color_region("#", "", get_color("comment_color", theme_type_variation), true)
+
+
+
+# Openning a file
+func load_file(path: String):
+	var file: File = File.new()
+	file.open(path, File.READ)
+
+	text = file.get_as_text()
+
+	file.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

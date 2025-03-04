@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "EditorBar",
+"language": "GDScript",
+"path": "res://Scripts/Files/EditorBar.gd"
+}, {
 "base": "TextEdit",
 "class": "TextEditor",
 "language": "GDScript",
 "path": "res://Scripts/Editing/TextEditor.gd"
 } ]
 _global_script_class_icons={
+"EditorBar": "",
 "TextEditor": ""
 }
 
