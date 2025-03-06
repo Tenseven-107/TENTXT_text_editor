@@ -43,7 +43,11 @@ func set_editor_colors():
 
 # File management
 # - Openning a file
-func load_file(path: String):
+func load_file(path: String, plain_text: String = ""):
+	if (plain_text != ""):
+		text = plain_text
+		return
+
 	var file: File = File.new()
 	file.open(path, File.READ)
 
