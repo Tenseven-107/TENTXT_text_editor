@@ -3,11 +3,26 @@ class_name TextEditor
 
 
 
+# CONTSANTS
+const READ_UPDATE_TIME: float = 0.5
+
+# Current syntax auto prefixes
+var current_book_mark_prefixes: Array = []
+
+
+
 # Set up
 func _ready():
 	# Colors
 	set_editor_colors()
-	add_prefix_colors()
+
+	# Base set up
+	yield(get_tree().create_timer(READ_UPDATE_TIME), "timeout")
+
+	check_text()
+
+	# Set up signals
+	connect("text_changed", self, "check_text")
 
 
 # - Colors
@@ -18,24 +33,10 @@ func set_editor_colors():
 
 	VisualServer.set_default_clear_color(Color(bg_color.r, bg_color.g, bg_color.b))
 
-	# Set editor colors
-	theme.set_color("caret_background_color", theme_type_variation, bg_color)
-	theme.set_color("font_color_selected", theme_type_variation, bg_color)
 
 
-# -- Add prefix colors
-func add_prefix_colors():
-	# Values
-	add_color_region("\"", "\"", get_color("string_value_color"), false)
-
-	# Comments
-	# NOTE: Update these depending on filetype later to avoid prefixes having the wrong color in other languages
-	add_color_region("//", "", get_color("comment_color", theme_type_variation),true)
-	add_color_region("#", "", get_color("comment_color", theme_type_variation), true)
-
-
-
-# Openning a file
+# File management
+# - Openning a file
 func load_file(path: String):
 	var file: File = File.new()
 	file.open(path, File.READ)
@@ -46,10 +47,36 @@ func load_file(path: String):
 
 
 
+# Syntax control
+func set_syntax(used_syntax: EditorLanguageSupport):
+	if used_syntax == null: return
+
+	current_book_mark_prefixes = used_syntax.bookmark_prefixes
 
 
 
+# Checking text when text is updated
+func check_text():
+	check_for_editor_prefixes()
 
+
+# - Check if a new editor prefix is added
+func check_for_editor_prefixes():
+	# Wait a couple frames
+	yield(get_tree().create_timer(READ_UPDATE_TIME), "timeout")
+
+	# Bookmarks
+	for prefix in current_book_mark_prefixes: # OPTIMIZE LATER
+		for line_number in get_line_count():
+			if line_number == get_line_count(): break
+
+			# Adding bookmarks
+			if get_line(line_number).begins_with(prefix) == true:
+				set_line_as_bookmark(line_number, true)
+
+			# Removing bookmarks
+			if is_line_set_as_bookmark(line_number) and get_line(line_number).begins_with(prefix) == false:
+				set_line_as_bookmark(line_number, false)
 
 
 

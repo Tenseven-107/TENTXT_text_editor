@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Editing/LanguageSupport.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+language_extension = ".cs"
+language_name = "C#"
+keywords = [ "var" ]
+built_in_classes = [ "String", "Array" ]
+value_prefixes = [ "\"" ]
+comments = [ "//" ]
+split_comments = [ "/**./" ]
+bookmark_prefixes = [  ]

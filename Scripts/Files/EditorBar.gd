@@ -31,11 +31,10 @@ func _ready():
 
 
 
-# Open file dialog for user to select a file to open\
+# Open file dialog for user to select a file to open
 func open_file_dialog():
 	file_dialog.show()
 	file_dialog.invalidate()
-
 
 # -- Open the file
 func load_file(path: String):
@@ -43,7 +42,8 @@ func load_file(path: String):
 
 
 
-# Close tabs
+# Tab control
+# - Close tab
 func close_tab(tab_idx: int):
 	# TODO: Add a saving popup asking if you want to save this file
 

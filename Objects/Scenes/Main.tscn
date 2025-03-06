@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/Files/EditorBar.gd" type="Script" id=2]
@@ -9,7 +9,10 @@
 [ext_resource path="res://Resources/Icons/Options_Hover.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Icons/File_open_Press.png" type="Texture" id=8]
 [ext_resource path="res://Resources/Icons/Options_Press.png" type="Texture" id=9]
-[ext_resource path="res://Scripts/Files/ProjectFileDialog.gd" type="Script" id=10]
+[ext_resource path="res://Objects/Main/SystemFileDialog.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Resources/Languages/GDScript_support.tres" type="Resource" id=11]
+[ext_resource path="res://Scripts/Editing/SyntaxChanger.gd" type="Script" id=12]
+[ext_resource path="res://Resources/Languages/Csharp_support.tres" type="Resource" id=13]
 
 [node name="Main" type="Node"]
 
@@ -24,11 +27,11 @@ anchor_bottom = 1.0
 [node name="TextureBG" type="TextureRect" parent="Control/BackLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-expand = true
 
 [node name="VideoBG" type="VideoPlayer" parent="Control/BackLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+expand = false
 
 [node name="EditorFront" type="VBoxContainer" parent="Control"]
 anchor_right = 1.0
@@ -56,8 +59,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.03
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
-file_dialog_path = NodePath("../../FileDialog")
-text_editor_path = NodePath("../Editor/TextEditor")
+file_dialog_path = NodePath("../../SystemFileDialog")
+text_editor_path = NodePath("../Editor/HBoxContainer/TextEditor")
 
 [node name="BackPanel" type="Panel" parent="Control/EditorFront/FileTabs"]
 anchor_right = 1.0
@@ -132,19 +135,27 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
-[node name="TextEditor" parent="Control/EditorFront/Editor" instance=ExtResource( 3 )]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/Editor"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="FileDialog" type="FileDialog" parent="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -157.5
-margin_top = -65.0
-margin_right = 157.5
-margin_bottom = 65.0
-popup_exclusive = true
-window_title = "Open a file"
-resizable = true
-mode = 0
-script = ExtResource( 10 )
+[node name="SmallSideMargin" type="Control" parent="Control/EditorFront/Editor/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 563.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.01
+
+[node name="TextEditor" parent="Control/EditorFront/Editor/HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 14.0
+margin_right = 1024.0
+margin_bottom = 563.0
+
+[node name="SyntaxChanger" type="Node" parent="Control/EditorFront/Editor"]
+script = ExtResource( 12 )
+syntaxes = [ ExtResource( 11 ), ExtResource( 13 ) ]
+text_editor_path = NodePath("../HBoxContainer/TextEditor")
+
+[node name="SystemFileDialog" parent="Control" instance=ExtResource( 10 )]
+visible = false
