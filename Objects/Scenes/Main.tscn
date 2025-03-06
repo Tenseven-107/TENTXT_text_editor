@@ -49,7 +49,7 @@ anchor_bottom = 1.0
 margin_bottom = 4.0
 theme = ExtResource( 1 )
 
-[node name="FileTabs" type="Control" parent="Control/EditorFront"]
+[node name="EditorBar" type="Control" parent="Control/EditorFront"]
 margin_top = 9.0
 margin_right = 1024.0
 margin_bottom = 33.0
@@ -60,37 +60,37 @@ size_flags_stretch_ratio = 0.03
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 file_dialog_path = NodePath("../../SystemFileDialog")
-text_editor_path = NodePath("../Editor/HBoxContainer/TextEditor")
+text_editor_path = NodePath("../Editor/TextEditor")
 
-[node name="BackPanel" type="Panel" parent="Control/EditorFront/FileTabs"]
+[node name="BackPanel" type="Panel" parent="Control/EditorFront/EditorBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = 4.0
 theme = ExtResource( 1 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/FileTabs"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/EditorBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Options" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer"]
+[node name="Options" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer"]
 margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/FileTabs/HBoxContainer/Options"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/EditorBar/HBoxContainer/Options"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Margin" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+[node name="Margin" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
 margin_right = 20.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="OpenFile" type="TextureButton" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+[node name="OpenFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
 margin_left = 24.0
 margin_right = 44.0
 margin_bottom = 24.0
@@ -101,7 +101,7 @@ texture_hover = ExtResource( 6 )
 expand = true
 stretch_mode = 4
 
-[node name="Options" type="TextureButton" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+[node name="Options" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
 margin_left = 48.0
 margin_right = 68.0
 margin_bottom = 24.0
@@ -112,14 +112,14 @@ texture_hover = ExtResource( 7 )
 expand = true
 stretch_mode = 4
 
-[node name="Margin2" type="Control" parent="Control/EditorFront/FileTabs/HBoxContainer/Options/HBoxContainer"]
+[node name="Margin2" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
 margin_left = 72.0
 margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tabs" type="Tabs" parent="Control/EditorFront/FileTabs/HBoxContainer"]
+[node name="Tabs" type="Tabs" parent="Control/EditorFront/EditorBar/HBoxContainer"]
 margin_left = 96.0
 margin_right = 1024.0
 margin_bottom = 24.0
@@ -135,27 +135,12 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/EditorFront/Editor"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="SmallSideMargin" type="Control" parent="Control/EditorFront/Editor/HBoxContainer"]
-margin_right = 10.0
-margin_bottom = 563.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.01
-
-[node name="TextEditor" parent="Control/EditorFront/Editor/HBoxContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 14.0
-margin_right = 1024.0
-margin_bottom = 563.0
+[node name="TextEditor" parent="Control/EditorFront/Editor" instance=ExtResource( 3 )]
 
 [node name="SyntaxChanger" type="Node" parent="Control/EditorFront/Editor"]
 script = ExtResource( 12 )
 syntaxes = [ ExtResource( 11 ), ExtResource( 13 ) ]
-text_editor_path = NodePath("../HBoxContainer/TextEditor")
+text_editor_path = NodePath("../TextEditor")
 
 [node name="SystemFileDialog" parent="Control" instance=ExtResource( 10 )]
 visible = false

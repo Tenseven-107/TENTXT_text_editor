@@ -6,6 +6,9 @@ class_name TextEditor
 # CONTSANTS
 const READ_UPDATE_TIME: float = 0.5
 
+# Default
+var default_text: String
+
 # Current syntax auto prefixes
 var current_book_mark_prefixes: Array = []
 
@@ -13,10 +16,13 @@ var current_book_mark_prefixes: Array = []
 
 # Set up
 func _ready():
+	# Base setup
+	default_text = text
+
 	# Colors
 	set_editor_colors()
 
-	# Base set up
+	# Base TIMED set up
 	yield(get_tree().create_timer(READ_UPDATE_TIME), "timeout")
 
 	check_text()
@@ -54,8 +60,13 @@ func set_syntax(used_syntax: EditorLanguageSupport):
 	current_book_mark_prefixes = used_syntax.bookmark_prefixes
 
 
+# Editing
+# - Clear text
+func wipe():
+	text = default_text
 
-# Checking text when text is updated
+
+# - Checking text when text is updated
 func check_text():
 	check_for_editor_prefixes()
 
