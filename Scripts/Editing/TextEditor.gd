@@ -12,6 +12,10 @@ var default_text: String
 # Current syntax auto prefixes
 var current_book_mark_prefixes: Array = []
 
+# Objects
+export (NodePath) var syntax_manager_path: NodePath
+var syntax_manager: SyntaxChanger
+
 
 
 # Set up
@@ -22,12 +26,16 @@ func _ready():
 	# Colors
 	set_editor_colors()
 
+	# Set up signals
+	syntax_manager = get_node(syntax_manager_path)
+	syntax_manager.connect("new_syntax_set", self, "set_syntax")
+
 	# Base TIMED set up
 	yield(get_tree().create_timer(READ_UPDATE_TIME), "timeout")
 
 	check_text()
 
-	# Set up signals
+	# Set up more signals
 	connect("text_changed", self, "check_text")
 
 
@@ -44,10 +52,16 @@ func set_editor_colors():
 # File management
 # - Openning a file
 func load_file(path: String, plain_text: String = ""):
+	# Load new syntax
+	syntax_manager.load_syntax_based_on_path(path)
+	check_text()
+
+	# Loaded text from memory if given
 	if (plain_text != ""):
 		text = plain_text
 		return
 
+	# Otherwise, load new file with text
 	var file: File = File.new()
 	file.open(path, File.READ)
 
@@ -68,6 +82,9 @@ func set_syntax(used_syntax: EditorLanguageSupport):
 # - Clear text
 func wipe():
 	text = default_text
+
+	syntax_manager.reset_syntax()
+	check_text()
 
 
 # - Checking text when text is updated

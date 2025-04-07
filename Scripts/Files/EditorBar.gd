@@ -59,7 +59,7 @@ func _ready():
 # Open file dialog for user to select a file to open/ save/ create
 func open_file_dialog():
 	file_dialog.show()
-	file_dialog.invalidate() #TODO: Add switch case for different actions like openning and saving
+	file_dialog.invalidate() #TODO: Add switch case for different actions like opening and saving
 
 # -- Open the file
 func load_file(path: String, plain_text: String = "", open_new_tab: bool = true):
@@ -116,7 +116,13 @@ func open_tab(tab_idx: int):
 				var split_text: PoolStringArray = text.split(TEXT_PATH_PREFIX, false, 1)
 
 				if split_text[0] == path:
-					used_text =  split_text[1]
+					# If there is no content, there is no text
+					if split_text.size() == 1:
+						used_text == "";
+						break
+
+					# Otherwise, just get the text
+					used_text = split_text[1]
 					break
 
 			# Load text

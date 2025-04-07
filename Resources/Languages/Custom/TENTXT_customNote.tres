@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource( 1 )
-language_extension = ".cs"
-language_name = "C#"
-keywords = [ "var", "private", "public", "internal", "protected" ]
-built_in_classes = [ "String", "Array" ]
+language_extension = ".gd"
+language_name = "GDScript"
+keywords = [  ]
+built_in_classes = [  ]
 value_prefixes = [ "\"" ]
-comments = [ "//" ]
-split_comments = [ "/**./" ]
+comments = [  ]
+split_comments = [  ]
 bookmark_prefixes = [  ]

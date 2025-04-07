@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/Files/EditorBar.gd" type="Script" id=2]
@@ -13,6 +13,12 @@
 [ext_resource path="res://Resources/Languages/GDScript_support.tres" type="Resource" id=11]
 [ext_resource path="res://Scripts/Editing/SyntaxChanger.gd" type="Script" id=12]
 [ext_resource path="res://Resources/Languages/Csharp_support.tres" type="Resource" id=13]
+[ext_resource path="res://Resources/Languages/Default/Default.tres" type="Resource" id=14]
+[ext_resource path="res://Resources/Shortcuts/Load_shortcut.tres" type="ShortCut" id=15]
+[ext_resource path="res://Resources/Icons/File_save_simple.png" type="Texture" id=16]
+[ext_resource path="res://Resources/Icons/File_save_Press.png" type="Texture" id=17]
+[ext_resource path="res://Resources/Icons/File_save_Hover.png" type="Texture" id=18]
+[ext_resource path="res://Resources/Shortcuts/Save_shortcut.tres" type="ShortCut" id=19]
 
 [node name="Main" type="Node"]
 
@@ -85,16 +91,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Margin" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_right = 20.0
+margin_right = 15.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="OpenFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 24.0
-margin_right = 44.0
+[node name="SaveFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
+margin_left = 19.0
+margin_right = 34.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+shortcut = ExtResource( 19 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 18 )
+expand = true
+stretch_mode = 4
+
+[node name="OpenFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
+margin_left = 38.0
+margin_right = 53.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+shortcut = ExtResource( 15 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 8 )
 texture_hover = ExtResource( 6 )
@@ -102,8 +121,8 @@ expand = true
 stretch_mode = 4
 
 [node name="Options" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 48.0
-margin_right = 68.0
+margin_left = 57.0
+margin_right = 72.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 texture_normal = ExtResource( 4 )
@@ -113,7 +132,7 @@ expand = true
 stretch_mode = 4
 
 [node name="Margin2" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 72.0
+margin_left = 76.0
 margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -136,11 +155,13 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="TextEditor" parent="Control/EditorFront/Editor" instance=ExtResource( 3 )]
+syntax_manager_path = NodePath("../SyntaxChanger")
 
 [node name="SyntaxChanger" type="Node" parent="Control/EditorFront/Editor"]
 script = ExtResource( 12 )
+default_syntax = ExtResource( 14 )
 syntaxes = [ ExtResource( 11 ), ExtResource( 13 ) ]
-text_editor_path = NodePath("../TextEditor")
+text_edit_path = NodePath("../TextEditor")
 
 [node name="SystemFileDialog" parent="Control" instance=ExtResource( 10 )]
 visible = false
