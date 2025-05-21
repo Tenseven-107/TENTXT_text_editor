@@ -18,9 +18,7 @@ onready var tabs: Tabs = $HBoxContainer/Tabs
 # Constants
 const WINDOW_TITLE_PREFIX: String = "TENTXT, simple text editor // Editing: "
 const TEXT_PATH_PREFIX: String = "*PATH*"
-
 const SAVE_PREFIX_TAB: String = "*"
-const SAVE_PREFIX: String = " * NOT SAVED YET"
 
 # Tabs
 var current_path: String
@@ -33,8 +31,6 @@ func change_current_text():
 	var current_title = tabs.get_tab_title(tabs.current_tab)
 	var new_title = current_title + SAVE_PREFIX_TAB
 	tabs.set_tab_title(tabs.current_tab, new_title if current_title.ends_with(SAVE_PREFIX_TAB) == false else current_title)
-
-	set_window_title(current_path)
 
 	# Store text
 	var text_idx: int = 0
@@ -56,6 +52,7 @@ func _ready():
 	# Set up signals
 	# - Saving
 	save_button.connect("pressed", self, "save_file")
+	file_dialog.connect("has_saved", self, "remove_save_mark")
 
 	# - Loading
 	file_button.connect("pressed", file_dialog, "load_file")
@@ -78,6 +75,11 @@ func _ready():
 func save_file():
 	file_dialog.save_file(current_path, text_editor.text)
 
+func remove_save_mark():
+	var current_title = tabs.get_tab_title(tabs.current_tab)
+	var new_title = tabs.get_tab_title(tabs.current_tab).split(SAVE_PREFIX_TAB)[0]
+	tabs.set_tab_title(tabs.current_tab, new_title if current_title.ends_with(SAVE_PREFIX_TAB) == true else current_title)
+
 
 
 # Loading
@@ -85,7 +87,7 @@ func save_file():
 func load_file(path: String, plain_text: String = "", open_new_tab: bool = true):
 	text_editor.load_file(path, plain_text)
 
-	set_window_title(path, true)
+	OS.set_window_title(WINDOW_TITLE_PREFIX + path)
 
 	# Open a new tab for file
 	if open_new_tab == true: 
@@ -102,6 +104,12 @@ func load_file(path: String, plain_text: String = "", open_new_tab: bool = true)
 # - Create tab
 func create_tab(file_name: String, path: String):
 	current_path = path
+
+	# If already contains filename, just open the tab of the same name
+	for tab_index in tabs.get_tab_count():
+		if tabs.get_tab_title(tab_index).begins_with(file_name):
+			tabs.current_tab = tab_index
+			return
 
 	# Create and select new tab
 	tabs.add_tab(file_name)
@@ -161,9 +169,7 @@ func close_tab(tab_idx: int):
 	var current_tab: int = tabs.current_tab
 
 	# If there is no more tab we reset the current path
-	if tab_idx - 1 < 0: 
-		current_path = ""
-		set_window_title("", true)
+	if tab_idx - 1 < 0: current_path = ""
 
 	# Remove path from opened filepaths
 	var path_idx: int = 0
@@ -205,48 +211,7 @@ func close_tab(tab_idx: int):
 			text_editor.wipe()
 
 		else:
-			open_tab(current_tab - 1)
-
-
-
-# Set window title with path
-func set_window_title(path: String, no_prefix: bool = false):
-	var saved_prefix: String
-	if no_prefix == false: 
-		saved_prefix= SAVE_PREFIX if tabs.get_tab_title(tabs.current_tab).ends_with(SAVE_PREFIX_TAB) else ""
-
-	OS.set_window_title(WINDOW_TITLE_PREFIX + path + saved_prefix)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			open_tab(clamp(current_tab - 1, 0, INF))
 
 
 

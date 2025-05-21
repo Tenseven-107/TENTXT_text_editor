@@ -1,6 +1,10 @@
 extends FileDialog
 
 
+# Signal
+signal has_saved
+
+
 # Options
 export (bool) var click_off_save: bool = false
 
@@ -34,13 +38,13 @@ func open_file_dialog(option: int = FileDialog.MODE_OPEN_FILE):
 
 
 # Save file with given path
-func save_file(saving_path: String, text: String):
+func save_file(saving_path: String, text: String, save_as: bool = false):
 	if saving_path == "": return
 	save_text = text
 
 	# Check if file even exists, if so, just save it
 	var file = File.new()
-	if file.file_exists(saving_path) == true:
+	if file.file_exists(saving_path) == true and save_as == false:
 		save()
 
 		return
@@ -56,6 +60,7 @@ func save():
 	file.store_string(save_text)
 
 	file.close()
+	emit_signal("has_saved")
 
 
 
