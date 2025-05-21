@@ -29,9 +29,8 @@ func open_file_dialog(option: int = FileDialog.MODE_OPEN_FILE):
 	show()
 	invalidate()
 
-	if option != FileDialog.MODE_SAVE_FILE and self.is_connected("confirmed", self, "save") == true:
-		self.disconnect("confirmed", self, "save")
-	else: self.connect("confirmed", self, "save")
+	if self.is_connected("file_selected", self, "save") == true:
+		self.disconnect("file_selected", self, "save")
 
 	mode = option # Uses the "Mode" option of the base FileDialog class
 
@@ -44,19 +43,23 @@ func save_file(saving_path: String, text: String, save_as: bool = false):
 
 	# Check if file even exists, if so, just save it
 	var file = File.new()
-	if file.file_exists(saving_path) == true and save_as == false:
-		save()
+	var file_exists = file.file_exists(saving_path)
+	file.close()
 
+	if file_exists == true and save_as == false:
+		save(saving_path)
 		return
 
 	# Otherwise we use the menu to save
 	open_file_dialog(FileDialog.MODE_SAVE_FILE)
+	self.connect("file_selected", self, "save")
+
 	current_path = saving_path
 
 # Save
-func save():
+func save(path: String):
 	var file = File.new()
-	file.open(current_path, File.WRITE)
+	file.open(path, File.WRITE)
 	file.store_string(save_text)
 
 	file.close()

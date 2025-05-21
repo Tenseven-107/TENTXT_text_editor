@@ -65,6 +65,8 @@ func load_file(path: String, plain_text: String = ""):
 
 	# Otherwise, load new file with text
 	var file: File = File.new()
+	if file.file_exists(path) == false: return
+
 	file.open(path, File.READ)
 
 	text = file.get_as_text()

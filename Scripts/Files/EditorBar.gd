@@ -4,6 +4,7 @@ class_name EditorBar
 
 # Objects
 onready var save_button: TextureButton = $HBoxContainer/Options/HBoxContainer/SaveFile
+onready var save_as_button: TextureButton = $HBoxContainer/Options/HBoxContainer/SaveFileAs
 onready var file_button: TextureButton = $HBoxContainer/Options/HBoxContainer/OpenFile
 onready var options_button: TextureButton = $HBoxContainer/Options/HBoxContainer/Options
 
@@ -54,6 +55,8 @@ func _ready():
 	save_button.connect("pressed", self, "save_file")
 	file_dialog.connect("has_saved", self, "remove_save_mark")
 
+	save_as_button.connect("pressed", self, "save_file_as")
+
 	# - Loading
 	file_button.connect("pressed", file_dialog, "load_file")
 	file_dialog.connect("file_selected", self, "load_file")
@@ -72,8 +75,9 @@ func _ready():
 
 
 # Saving
-func save_file():
-	file_dialog.save_file(current_path, text_editor.text)
+func save_file(): file_dialog.save_file(current_path, text_editor.text)
+
+func save_file_as(): file_dialog.save_file(current_path, text_editor.text, true)
 
 func remove_save_mark():
 	var current_title = tabs.get_tab_title(tabs.current_tab)
@@ -122,6 +126,8 @@ func create_tab(file_name: String, path: String):
 
 	# Add file text of tab to array of held tabs
 	var file = File.new()
+	if file.file_exists(path) == false: return
+
 	file.open(path, File.READ)
 
 	var new_text: String = file.get_as_text().insert(0, path+TEXT_PATH_PREFIX)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/Files/EditorBar.gd" type="Script" id=2]
@@ -19,6 +19,19 @@
 [ext_resource path="res://Resources/Icons/File_save_Press.png" type="Texture" id=17]
 [ext_resource path="res://Resources/Icons/File_save_Hover.png" type="Texture" id=18]
 [ext_resource path="res://Resources/Shortcuts/Save_shortcut.tres" type="ShortCut" id=19]
+[ext_resource path="res://Resources/Icons/File_save_as_simple.png" type="Texture" id=20]
+[ext_resource path="res://Resources/Icons/File_save_as_Press.png" type="Texture" id=21]
+[ext_resource path="res://Resources/Icons/File_save_as_Hover.png" type="Texture" id=22]
+
+[sub_resource type="InputEventKey" id=1]
+alt = true
+control = true
+command = true
+scancode = 83
+physical_scancode = 83
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="Main" type="Node"]
 
@@ -91,14 +104,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Margin" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_right = 15.0
+margin_right = 12.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SaveFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 19.0
-margin_right = 34.0
+margin_left = 16.0
+margin_right = 28.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 shortcut = ExtResource( 19 )
@@ -108,9 +121,21 @@ texture_hover = ExtResource( 18 )
 expand = true
 stretch_mode = 4
 
+[node name="SaveFileAs" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
+margin_left = 32.0
+margin_right = 44.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+shortcut = SubResource( 2 )
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 21 )
+texture_hover = ExtResource( 22 )
+expand = true
+stretch_mode = 4
+
 [node name="OpenFile" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 38.0
-margin_right = 53.0
+margin_left = 48.0
+margin_right = 60.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 shortcut = ExtResource( 15 )
@@ -121,8 +146,8 @@ expand = true
 stretch_mode = 4
 
 [node name="Options" type="TextureButton" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 57.0
-margin_right = 72.0
+margin_left = 64.0
+margin_right = 76.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 texture_normal = ExtResource( 4 )
@@ -132,7 +157,7 @@ expand = true
 stretch_mode = 4
 
 [node name="Margin2" type="Control" parent="Control/EditorFront/EditorBar/HBoxContainer/Options/HBoxContainer"]
-margin_left = 76.0
+margin_left = 80.0
 margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
