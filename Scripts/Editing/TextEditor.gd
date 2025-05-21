@@ -59,6 +59,8 @@ func load_file(path: String, plain_text: String = ""):
 	# Loaded text from memory if given
 	if (plain_text != ""):
 		text = plain_text
+		clear_undo_history()
+
 		return
 
 	# Otherwise, load new file with text
@@ -66,6 +68,7 @@ func load_file(path: String, plain_text: String = ""):
 	file.open(path, File.READ)
 
 	text = file.get_as_text()
+	clear_undo_history()
 
 	file.close()
 
