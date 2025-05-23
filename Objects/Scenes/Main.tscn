@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Resources/Themes/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/Files/EditorBar.gd" type="Script" id=2]
@@ -14,24 +14,14 @@
 [ext_resource path="res://Scripts/Editing/SyntaxChanger.gd" type="Script" id=12]
 [ext_resource path="res://Resources/Languages/Csharp_support.tres" type="Resource" id=13]
 [ext_resource path="res://Resources/Languages/Default/Default.tres" type="Resource" id=14]
-[ext_resource path="res://Resources/Shortcuts/Load_shortcut.tres" type="ShortCut" id=15]
 [ext_resource path="res://Resources/Icons/File_save_simple.png" type="Texture" id=16]
 [ext_resource path="res://Resources/Icons/File_save_Press.png" type="Texture" id=17]
 [ext_resource path="res://Resources/Icons/File_save_Hover.png" type="Texture" id=18]
-[ext_resource path="res://Resources/Shortcuts/Save_shortcut.tres" type="ShortCut" id=19]
+[ext_resource path="res://Scripts/Editing/KeyBinds.gd" type="Script" id=19]
 [ext_resource path="res://Resources/Icons/File_save_as_simple.png" type="Texture" id=20]
 [ext_resource path="res://Resources/Icons/File_save_as_Press.png" type="Texture" id=21]
 [ext_resource path="res://Resources/Icons/File_save_as_Hover.png" type="Texture" id=22]
-
-[sub_resource type="InputEventKey" id=1]
-alt = true
-control = true
-command = true
-scancode = 83
-physical_scancode = 83
-
-[sub_resource type="ShortCut" id=2]
-shortcut = SubResource( 1 )
+[ext_resource path="res://Scripts/UI/TabsPanel.gd" type="Script" id=23]
 
 [node name="Main" type="Node"]
 
@@ -114,7 +104,6 @@ margin_left = 16.0
 margin_right = 28.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-shortcut = ExtResource( 19 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 17 )
 texture_hover = ExtResource( 18 )
@@ -126,7 +115,6 @@ margin_left = 32.0
 margin_right = 44.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-shortcut = SubResource( 2 )
 texture_normal = ExtResource( 20 )
 texture_pressed = ExtResource( 21 )
 texture_hover = ExtResource( 22 )
@@ -138,7 +126,6 @@ margin_left = 48.0
 margin_right = 60.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-shortcut = ExtResource( 15 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 8 )
 texture_hover = ExtResource( 6 )
@@ -171,7 +158,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 1 )
 tab_align = 0
 tab_close_display_policy = 2
-drag_to_rearrange_enabled = true
+script = ExtResource( 23 )
 
 [node name="Editor" type="Control" parent="Control/EditorFront"]
 margin_top = 37.0
@@ -189,4 +176,9 @@ syntaxes = [ ExtResource( 11 ), ExtResource( 13 ) ]
 text_edit_path = NodePath("../TextEditor")
 
 [node name="SystemFileDialog" parent="Control" instance=ExtResource( 10 )]
-visible = false
+
+[node name="KeyBinds" type="Node" parent="Control"]
+script = ExtResource( 19 )
+file_dialog_path = NodePath("../SystemFileDialog")
+text_editor_path = NodePath("../EditorFront/Editor/TextEditor")
+editor_bar_path = NodePath("../EditorFront/EditorBar")

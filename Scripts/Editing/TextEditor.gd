@@ -2,6 +2,8 @@ extends TextEdit
 class_name TextEditor
 
 
+# Settings
+export (bool) var set_default_text: bool = true
 
 # CONTSANTS
 const READ_UPDATE_TIME: float = 0.5
@@ -22,6 +24,9 @@ var syntax_manager: SyntaxChanger
 func _ready():
 	# Base setup
 	default_text = text
+	if set_default_text == false: text = ""
+
+	grab_focus()
 
 	# Colors
 	set_editor_colors()
@@ -55,9 +60,10 @@ func load_file(path: String, plain_text: String = ""):
 	# Load new syntax
 	syntax_manager.load_syntax_based_on_path(path)
 	check_text()
+	grab_focus()
 
 	# Loaded text from memory if given
-	if (plain_text != ""):
+	if plain_text != "":
 		text = plain_text
 		clear_undo_history()
 
@@ -86,7 +92,7 @@ func set_syntax(used_syntax: EditorLanguageSupport):
 # Editing
 # - Clear text
 func wipe():
-	text = default_text
+	if set_default_text == true: text = default_text
 
 	syntax_manager.reset_syntax()
 	check_text()

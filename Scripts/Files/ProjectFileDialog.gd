@@ -28,6 +28,7 @@ func _notification(what):
 func open_file_dialog(option: int = FileDialog.MODE_OPEN_FILE):
 	show()
 	invalidate()
+	get_line_edit().grab_focus()
 
 	if self.is_connected("file_selected", self, "save") == true:
 		self.disconnect("file_selected", self, "save")

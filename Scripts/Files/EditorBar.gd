@@ -28,6 +28,8 @@ var tab_texts: Array
 
 # - Set in memory text to new text from editor
 func change_current_text():
+	if current_path == "": return
+
 	# Set save titles
 	var current_title = tabs.get_tab_title(tabs.current_tab)
 	var new_title = current_title + SAVE_PREFIX_TAB
@@ -169,10 +171,11 @@ func open_tab(tab_idx: int):
 
 
 # - Close tab
-func close_tab(tab_idx: int):
+func close_tab(tab_idx: int, current: bool = false):
 	# TODO: Add a saving popup asking if you want to save this file
 
 	var current_tab: int = tabs.current_tab
+	if current == true: tab_idx = current_tab
 
 	# If there is no more tab we reset the current path
 	if tab_idx - 1 < 0: current_path = ""
@@ -218,6 +221,20 @@ func close_tab(tab_idx: int):
 
 		else:
 			open_tab(clamp(current_tab - 1, 0, INF))
+
+# - Close all tabs
+func close_all_tabs():
+	for tab in range(tabs.get_tab_count()):
+		close_tab(tab, true)
+
+
+
+
+
+
+
+
+
 
 
 
