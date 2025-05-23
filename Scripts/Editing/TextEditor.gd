@@ -3,9 +3,12 @@ class_name TextEditor
 
 
 # Settings
+export (DynamicFont) var font_override: DynamicFont = load("res://Resources/Fonts/default_font.tres")
 export (bool) var set_default_text: bool = true
 
 # CONTSANTS
+const FONT_OVERRIDE_NAME: String = "font"
+const FONT_SIZE_MAX: int = 100
 const READ_UPDATE_TIME: float = 0.5
 
 # Default
@@ -27,6 +30,7 @@ func _ready():
 	if set_default_text == false: text = ""
 
 	grab_focus()
+	add_font_override(FONT_OVERRIDE_NAME, font_override)
 
 	# Colors
 	set_editor_colors()
@@ -122,7 +126,14 @@ func check_for_editor_prefixes():
 				set_line_as_bookmark(line_number, false)
 
 
+# - Set new text size
+func set_text_size(remove: bool = false, added_size: int = 1):
+	var old: DynamicFont = get_font(FONT_OVERRIDE_NAME)
+	var font_size = old.size
+	var new = old.duplicate()
 
+	new.size = clamp((font_size + added_size if remove == false else font_size - added_size), 1, FONT_SIZE_MAX)
+	add_font_override(FONT_OVERRIDE_NAME, new)
 
 
 

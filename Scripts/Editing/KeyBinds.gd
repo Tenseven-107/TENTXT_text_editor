@@ -12,7 +12,11 @@ export (NodePath) var editor_bar_path: NodePath
 onready var editor_bar: EditorBar = get_node(editor_bar_path)
 
 
+
 # Input
+func _process(delta):
+	text_size()
+
 func _input(event: InputEvent):
 	bar_control(event)
 
@@ -22,7 +26,7 @@ func _unhandled_input(event: InputEvent):
 		loading(event)
 		#new_file()
 
-		#editing()
+		#editing(event)
 		#configuring()
 
 		menu(event)
@@ -47,6 +51,16 @@ func loading(event: InputEvent):
 	if event.is_action_pressed("files_load"): file_dialog.load_file()
 
 
+# - Text size
+func text_size():
+	if Input.is_action_pressed("editing_fontsize_mod"):
+		if Input.is_action_just_released("editing_fontsize_big"): 
+			text_editor.set_text_size(false)
+			return
+
+		if Input.is_action_just_released("editing_fontsize_small"): 
+			text_editor.set_text_size(true)
+			return
 
 # - Menu and UI
 func menu(event):

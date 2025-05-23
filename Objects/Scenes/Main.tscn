@@ -182,6 +182,7 @@ text = "# Hi!
 #! Are you ready? Here are some fun keybinds !
 
 # - SHFT + CTRL + B = toggle collapsible bar ( TIP: Hover the upper part of the screen to reveal the bar !! )
+# - CTRL + SCROLL (or + / -) = zoom in or out
 
 # - CTRL + S = save
 # - ALT + CTRL + S = save as
