@@ -16,6 +16,11 @@ var text_editor: TextEditor
 
 onready var tabs: Tabs = $HBoxContainer/Tabs
 
+
+# Settings
+export (bool) var collapsible_bar: bool = true
+export (float) var collapsible_bar_buffer: float = 1.8
+
 # Constants
 const WINDOW_TITLE_PREFIX: String = "TENTXT, simple text editor // Editing: "
 const TEXT_PATH_PREFIX: String = "*PATH*"
@@ -52,6 +57,9 @@ func change_current_text():
 
 # Set up
 func _ready():
+	# Basic
+	if collapsible_bar == true: hide()
+
 	# Set up signals
 	# - Saving
 	save_button.connect("pressed", self, "save_file")
@@ -228,6 +236,11 @@ func close_all_tabs():
 		close_tab(tab, true)
 
 
+
+# UI
+func hide_bar():
+	if collapsible_bar == false: return
+	hide()
 
 
 

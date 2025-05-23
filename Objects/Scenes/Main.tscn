@@ -167,6 +167,31 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 
 [node name="TextEditor" parent="Control/EditorFront/Editor" instance=ExtResource( 3 )]
+text = "# Hi!
+
+#! Welcome to TENTXT !
+# Edit text to your hearts content in this simple, 
+# fun but clean text editor.
+
+
+# \\0_0/  \\-_0/  \\0_-/  \\-_-/  \\0_0/  \\-0-/  \\-_-/  \\-0-/  \\_-_/  \\-O-/ 
+
+
+
+
+#! Are you ready? Here are some fun keybinds !
+
+# - SHFT + CTRL + B = toggle collapsible bar ( TIP: Hover the upper part of the screen to reveal the bar !! )
+
+# - CTRL + S = save
+# - ALT + CTRL + S = save as
+# - SHFT + CTRL + S = save all
+
+# - CTRL + L = load file
+# - CTRL + N = create new file
+
+# - ALT + CTRL + X = close current tab
+# - SHFT + CTRL + X = close all tabs"
 syntax_manager_path = NodePath("../SyntaxChanger")
 
 [node name="SyntaxChanger" type="Node" parent="Control/EditorFront/Editor"]

@@ -13,6 +13,9 @@ onready var editor_bar: EditorBar = get_node(editor_bar_path)
 
 
 # Input
+func _input(event: InputEvent):
+	bar_control(event)
+
 func _unhandled_input(event: InputEvent):
 	if event.is_pressed():
 		saving(event)
@@ -25,6 +28,13 @@ func _unhandled_input(event: InputEvent):
 		menu(event)
 		tabs(event)
 
+
+# - Bar controls
+func bar_control(event: InputEvent):
+	if event is InputEventMouse:
+		if event.position.y <= editor_bar.rect_position.y + (editor_bar.rect_size.y / editor_bar.collapsible_bar_buffer):
+			editor_bar.show()
+		else: editor_bar.hide_bar()
 
 
 # - Save/ load/ new
@@ -40,6 +50,10 @@ func loading(event: InputEvent):
 
 # - Menu and UI
 func menu(event):
+	if event.is_action_pressed("bar_keep_switch"): 
+		editor_bar.collapsible_bar = !editor_bar.collapsible_bar
+		editor_bar.visible = !editor_bar.collapsible_bar
+
 	if event.is_action_pressed("ui_cancel"):
 		text_editor.grab_focus()
 
