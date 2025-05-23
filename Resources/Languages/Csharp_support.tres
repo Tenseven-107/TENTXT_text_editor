@@ -6,9 +6,9 @@
 script = ExtResource( 1 )
 language_extension = ".cs"
 language_name = "C#"
-keywords = [ "var", "private", "public", "internal", "protected" ]
-built_in_classes = [ "String", "Array" ]
+keywords = [ "var", "private", "public", "internal", "protected", "await", "break", "continue", "const", "enum", "extends", "for", "func", "if", "match", "pass", "return", "while" ]
+built_in_classes = [ "String", "Array", "bool", "int", "float" ]
 value_prefixes = [ "\"" ]
 comments = [ "//" ]
 split_comments = [ "/**./" ]
-bookmark_prefixes = [  ]
+bookmark_prefixes = [ "//!" ]
